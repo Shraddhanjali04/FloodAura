@@ -12,9 +12,6 @@ from app.config import settings
 from app.routers import floods
 from app.routers import auth
 from app.routers import notifications
-from app.routers import map
-from app.routers import alerts
-from app.routers import route_verdict
 
 
 @asynccontextmanager
@@ -26,13 +23,8 @@ async def lifespan(app: FastAPI):
     # Startup: Initialize database
     print("🚀 Starting Hyperlocal Urban Flood Forecaster API...")
     print(f"📊 Initializing database...")
-    try:
-        init_db()
-        print("✅ Database initialized successfully")
-    except Exception as e:
-        print(f"⚠️  Database connection failed: {e}")
-        print("⚠️  API will run with mock data fallback")
-        print("⚠️  To fix: Update DATABASE_URL in .env with valid credentials")
+    init_db()
+    print("✅ Database initialized successfully")
     
     yield
     
@@ -87,9 +79,6 @@ app.add_middleware(
 app.include_router(floods.router, prefix="/api/v1")
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(notifications.router, prefix="/api/v1")
-app.include_router(map.router, prefix="/api/v1")
-app.include_router(alerts.router, prefix="/api/v1")
-app.include_router(route_verdict.router, prefix="/api")
 
 
 @app.get("/")

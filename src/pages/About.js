@@ -44,17 +44,6 @@ const About = () => {
     }
   ];
 
-  const techStack = [
-    'TensorFlow',
-    'PyTorch',
-    'Apache Kafka',
-    'Apache Spark',
-    'NOAA API',
-    'NASA SMAP',
-    'OpenWeatherMap',
-    'React + Mapbox'
-  ];
-
   return (
     <div className="min-h-screen py-20 bg-flood-darker">
       <div className="container mx-auto px-6">
@@ -128,24 +117,6 @@ const About = () => {
           </div>
         </div>
 
-        {/* Technology Stack Section */}
-        <div className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Technology Stack</h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            {techStack.map((tech, index) => (
-              <div 
-                key={index}
-                className="bg-flood-navy/40 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-flood-cyan/50 transition-all duration-300 hover:transform hover:scale-105"
-              >
-                <span className="text-white font-semibold">{tech}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Join the Movement Section */}
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-flood-navy/60 to-flood-cyan/20 border border-gray-800 p-12 text-center">
           <div className="absolute inset-0 opacity-10">
@@ -167,9 +138,14 @@ const About = () => {
               <button className="bg-flood-cyan hover:bg-[#00BFFF] text-flood-navy px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-cyan-glow">
                 Get in Touch
               </button>
-              <button className="bg-transparent border-2 border-flood-cyan hover:bg-flood-cyan/10 text-flood-cyan px-8 py-4 rounded-lg font-semibold transition-all duration-300">
+              <a 
+                href="https://github.com/arnab-maity007/ecocode" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-transparent border-2 border-flood-cyan hover:bg-flood-cyan/10 text-flood-cyan px-8 py-4 rounded-lg font-semibold transition-all duration-300"
+              >
                 View on GitHub
-              </button>
+              </a>
             </div>
           </div>
         </div>
