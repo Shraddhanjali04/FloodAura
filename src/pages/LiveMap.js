@@ -1,16 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Search, MapPin, Plus, Minus, Maximize2, Clock, Target } from 'lucide-react';
+import apiService from '../services/api';
 
 const LiveMap = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeAlerts, setActiveAlerts] = useState([]);
   const [lastUpdated, setLastUpdated] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  // API Base URL - Configure this based on your FastAPI backend
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+  const [apiConnected, setApiConnected] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
 
   // Fetch active alerts from backend
+  const fetchActiveAlerts = useCallback(async () => {
+    try {
+      const data = await apiService.getActiveAlerts();
+      setActiveAlerts(data);
+      setApiConnected(true);
+    } catch (error) {
+      console.error('Error fetching alerts:', error);
+      setApiConnected(false);
+      // Fallback to mock data for development
+      setActiveAlerts([
+        { id: 1, location: 'Downtown', risk: 'High', time: '2 hours', risk_score: 75 },
+        { id: 2, location: 'East Side', risk: 'Medium', time: '4 hours', risk_score: 45 }
+      ]);
+    }
+  }, []);
+
+  // Fetch last updated time
+  const fetchLastUpdated = useCallback(async () => {
+    try {
+      const data = await apiService.getLastUpdate();
+      setLastUpdated(data.timestamp);
+    } catch (error) {
+      // Fallback to current time
+      const now = new Date();
+      setLastUpdated(now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }));
+    }
+  }, []);
+
+  // Initial data load
   useEffect(() => {
     fetchActiveAlerts();
     fetchLastUpdated();
@@ -22,55 +51,28 @@ const LiveMap = () => {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  // Fetch active alerts from PostgreSQL via FastAPI
-  const fetchActiveAlerts = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/alerts/active`);
-      if (response.ok) {
-        const data = await response.json();
-        setActiveAlerts(data);
-      }
-    } catch (error) {
-      console.error('Error fetching alerts:', error);
-      // Fallback to mock data for development
-      setActiveAlerts([
-        { id: 1, location: 'Downtown', risk: 'High', time: '2 hours' },
-        { id: 2, location: 'East Side', risk: 'Moderate', time: '4 hours' }
-      ]);
-    }
-  };
-
-  // Fetch last updated time
-  const fetchLastUpdated = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/map/last-update`);
-      if (response.ok) {
-        const data = await response.json();
-        setLastUpdated(data.timestamp);
-      }
-    } catch (error) {
-      // Fallback to current time
-      const now = new Date();
-      setLastUpdated(now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }));
-    }
-  };
+  }, [fetchActiveAlerts, fetchLastUpdated]);
 
   // Handle location search
   const handleSearch = async (e) => {
     e.preventDefault();
+    if (!searchQuery.trim()) return;
+    
     setIsLoading(true);
     
     try {
-      const response = await fetch(`${API_BASE_URL}/map/search?location=${encodeURIComponent(searchQuery)}`);
-      if (response.ok) {
-        const data = await response.json();
-        // Handle map center update or location highlight
+      const data = await apiService.searchLocation(searchQuery);
+      
+      if (data.found) {
         console.log('Location found:', data);
+        alert(`Found: ${data.location_name}\nRisk Level: ${data.severity}\nRisk Score: ${data.risk_score}`);
+        // TODO: Center map on location
+      } else {
+        alert('Location not found. Try searching for a nearby area or use "Locate Me"');
       }
     } catch (error) {
       console.error('Search error:', error);
+      alert('Unable to search location. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -84,29 +86,43 @@ const LiveMap = () => {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
+          setUserLocation({ latitude, longitude });
           
           try {
-            const response = await fetch(`${API_BASE_URL}/map/locate`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ lat: latitude, lng: longitude })
-            });
+            const data = await apiService.sendUserLocation(latitude, longitude);
+            console.log('Location data:', data);
             
-            if (response.ok) {
-              const data = await response.json();
-              console.log('Location data:', data);
+            // Show risk information
+            alert(
+              `Your Location Risk Assessment:\n\n` +
+              `Risk Level: ${data.severity}\n` +
+              `Risk Score: ${data.risk_score}/100\n` +
+              `Rainfall: ${data.rainfall_mm}mm\n` +
+              `Elevation: ${data.elevation_m}m\n` +
+              `Nearby Events: ${data.nearby_events}`
+            );
+            
+            // Fetch nearby alerts
+            if (data.nearby_events > 0) {
+              const nearbyAlerts = await apiService.getNearbyAlerts(latitude, longitude, 10);
+              console.log('Nearby alerts:', nearbyAlerts);
             }
           } catch (error) {
             console.error('Error sending location:', error);
+            alert('Location received but unable to fetch risk data');
           } finally {
             setIsLoading(false);
           }
         },
         (error) => {
           console.error('Geolocation error:', error);
+          alert('Unable to access your location. Please enable location services.');
           setIsLoading(false);
         }
       );
+    } else {
+      alert('Geolocation is not supported by your browser');
+      setIsLoading(false);
     }
   };
 
@@ -127,16 +143,12 @@ const LiveMap = () => {
   };
 
   const getRiskColor = (risk) => {
-    switch (risk?.toLowerCase()) {
-      case 'high':
-        return 'border-red-500';
-      case 'moderate':
-        return 'border-yellow-500';
-      case 'low':
-        return 'border-green-500';
-      default:
-        return 'border-gray-500';
-    }
+    const riskLower = risk?.toLowerCase();
+    if (riskLower === 'critical') return 'border-purple-500';
+    if (riskLower === 'high') return 'border-red-500';
+    if (riskLower === 'medium' || riskLower === 'moderate') return 'border-yellow-500';
+    if (riskLower === 'low') return 'border-green-500';
+    return 'border-gray-500';
   };
 
   return (
@@ -144,8 +156,18 @@ const LiveMap = () => {
       <div className="h-[calc(100vh-5rem)]">
         {/* Page Header */}
         <div className="bg-flood-darker px-8 py-6 border-b border-gray-800">
-          <h1 className="text-4xl font-bold text-flood-cyan mb-2">Live Flood Map</h1>
-          <p className="text-gray-400">Real-time street-level flood risk monitoring</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-4xl font-bold text-flood-cyan mb-2">Live Flood Map</h1>
+              <p className="text-gray-400">Real-time street-level flood risk monitoring</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${apiConnected ? 'bg-green-500' : 'bg-red-500'}`}></div>
+              <span className="text-sm text-gray-400">
+                {apiConnected ? 'API Connected' : 'API Offline'}
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Search Bar Section */}
