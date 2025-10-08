@@ -155,65 +155,6 @@ floodAurra/
 - **High**: 51-75 points
 - **Critical**: 76-100 points
 
-## 🔐 API Authentication
-
-JWT authentication is implemented for future features. To use protected endpoints:
-
-1. Register a user account
-2. Login to receive JWT token
-3. Include token in requests:
-```http
-Authorization: Bearer <your_jwt_token>
-```
-
-## 🌐 Frontend Integration
-
-### Example React Integration
-
-```javascript
-// Create flood event
-const createFloodEvent = async (data) => {
-  const response = await fetch('http://localhost:8000/api/v1/floods/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
-};
-
-// Get all flood events
-const getFloodEvents = async () => {
-  const response = await fetch('http://localhost:8000/api/v1/floods/');
-  return response.json();
-};
-
-// Calculate risk without saving
-const calculateRisk = async (latitude, longitude, locationName) => {
-  const response = await fetch('http://localhost:8000/api/v1/floods/calculate-risk', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ latitude, longitude, location_name: locationName }),
-  });
-  return response.json();
-};
-```
-
-## 🧪 Testing
-
-```bash
-# Install testing dependencies
-pip install pytest pytest-asyncio httpx
-
-# Run tests (create tests/ directory with test files)
-pytest tests/
-
-# Test with coverage
-pytest --cov=app tests/
-```
 
 ## 🔧 Configuration
 
@@ -303,31 +244,13 @@ CREATE TABLE users (
 - [ ] Multi-language support
 - [ ] Admin dashboard
 
-## 📝 License
-
-This project is licensed under the MIT License.
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+
 
 ## 📧 Support
 
 For issues, questions, or contributions, please open an issue on GitHub.
 
-## 🙏 Acknowledgments
-
-- OpenWeatherMap for weather data API
-- Google Maps Platform for elevation data
-- FastAPI framework and community
-- SQLAlchemy ORM
-
----
-
-**Built with ❤️ for safer cities and flood-resilient communities**
