@@ -1,91 +1,175 @@
 import React from 'react';
-import { Info, Target, Users, Zap } from 'lucide-react';
+import { Database, Cpu, Zap, Bell } from 'lucide-react';
 
 const About = () => {
+  const aiPipeline = [
+    {
+      icon: Database,
+      title: 'Data Collection',
+      description: 'Real-time data from NOAA, NASA SMAP, OpenWeatherMap, and local sensors'
+    },
+    {
+      icon: Cpu,
+      title: 'AI Processing',
+      description: 'Deep learning models (TensorFlow, PyTorch) analyze patterns and predict risks'
+    },
+    {
+      icon: Zap,
+      title: 'Real-time Pipeline',
+      description: 'Apache Kafka and Spark process data streams with minimal latency'
+    },
+    {
+      icon: Bell,
+      title: 'Alert Distribution',
+      description: 'Instant notifications via SMS, email, and WebSocket connections'
+    }
+  ];
+
+  const keyFeatures = [
+    {
+      title: 'Street-Level Precision',
+      description: 'Hyperlocal forecasts down to individual streets and neighborhoods'
+    },
+    {
+      title: '2-8 Hour Lead Time',
+      description: 'Advanced warning system gives communities time to prepare and evacuate'
+    },
+    {
+      title: '85%+ Accuracy',
+      description: 'Machine learning models continuously improve prediction accuracy'
+    },
+    {
+      title: 'Multi-Source Data',
+      description: 'Combines satellite imagery, weather stations, and IoT sensors'
+    }
+  ];
+
+  const techStack = [
+    'TensorFlow',
+    'PyTorch',
+    'Apache Kafka',
+    'Apache Spark',
+    'NOAA API',
+    'NASA SMAP',
+    'OpenWeatherMap',
+    'React + Mapbox'
+  ];
+
   return (
     <div className="min-h-screen py-20 bg-flood-darker">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-flood-cyan/10 rounded-2xl mb-6 border border-flood-cyan/30">
-            <Info className="w-10 h-10 text-flood-cyan" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            About <span className="text-flood-cyan">FloodAura</span>
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold text-flood-cyan mb-4">
+            How FloodWatch Works
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Leveraging AI and satellite technology for climate resilience
+          <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto">
+            AI-powered hyperlocal flood prediction combining satellite data, machine learning, and real-time processing to save lives and protect communities.
           </p>
         </div>
 
-        {/* Mission Section */}
-        <div className="max-w-4xl mx-auto mb-16">
-          <div className="bg-flood-navy/60 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
-            <h2 className="text-3xl font-bold text-white mb-6">Our Mission</h2>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              FloodAura is dedicated to protecting urban communities from the devastating impacts of flooding through cutting-edge AI technology and real-time data analysis.
+        {/* AI Pipeline Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">AI Pipeline</h2>
+            <p className="text-gray-400 text-lg">
+              Our sophisticated data processing pipeline transforms raw data into actionable insights
             </p>
-            <p className="text-gray-300 leading-relaxed text-lg">
-              By combining satellite imagery, machine learning, and hyperlocal sensors, we provide unprecedented accuracy in flood prediction, giving communities the time they need to prepare and respond effectively.
-            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {aiPipeline.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div 
+                  key={index}
+                  className="bg-flood-navy/40 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-flood-cyan/50 transition-all duration-300 hover:transform hover:scale-105"
+                >
+                  <div className="bg-flood-cyan/10 w-14 h-14 rounded-xl flex items-center justify-center mb-4 border border-flood-cyan/30">
+                    <Icon className="w-7 h-7 text-flood-cyan" />
+                  </div>
+                  <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Cyan Wave Visualization Image */}
+          <div className="relative rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
+            <img 
+              src="/ai-wave.jpg"
+              alt="AI Data Visualization"
+              className="w-full h-[400px] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-flood-darker via-transparent to-transparent"></div>
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-flood-navy/60 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-flood-cyan/50 transition-all duration-300">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-flood-cyan/10 rounded-xl mb-4 border border-flood-cyan/30">
-              <Target className="w-8 h-8 text-flood-cyan" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">Precision</h3>
-            <p className="text-gray-400">
-              Street-level accuracy with 85%+ prediction reliability
+        {/* Key Features Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Key Features</h2>
+            <p className="text-gray-400 text-lg">
+              Advanced technology delivering unprecedented flood prediction capabilities
             </p>
           </div>
 
-          <div className="bg-flood-navy/60 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-flood-cyan/50 transition-all duration-300">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-flood-cyan/10 rounded-xl mb-4 border border-flood-cyan/30">
-              <Zap className="w-8 h-8 text-flood-cyan" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">Speed</h3>
-            <p className="text-gray-400">
-              Real-time processing with sub-2-minute response times
-            </p>
-          </div>
-
-          <div className="bg-flood-navy/60 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-flood-cyan/50 transition-all duration-300">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-flood-cyan/10 rounded-xl mb-4 border border-flood-cyan/30">
-              <Users className="w-8 h-8 text-flood-cyan" />
-            </div>
-            <h3 className="text-xl font-bold text-white mb-3">Community</h3>
-            <p className="text-gray-400">
-              Protecting 10,000+ streets and countless lives
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {keyFeatures.map((feature, index) => (
+              <div 
+                key={index}
+                className="bg-flood-navy/40 backdrop-blur-sm border border-gray-800 rounded-xl p-8 hover:border-flood-cyan/50 transition-all duration-300"
+              >
+                <h3 className="text-white font-bold text-xl mb-3">{feature.title}</h3>
+                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Technology Stack */}
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-flood-navy/60 backdrop-blur-sm border border-gray-800 rounded-2xl p-8">
-            <h2 className="text-3xl font-bold text-white mb-6">Technology Stack</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="text-xl font-semibold text-flood-cyan mb-3">Data Sources</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Satellite imagery and remote sensing</li>
-                  <li>• Weather station networks</li>
-                  <li>• IoT sensor arrays</li>
-                  <li>• Topographical data</li>
-                </ul>
+        {/* Technology Stack Section */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Technology Stack</h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {techStack.map((tech, index) => (
+              <div 
+                key={index}
+                className="bg-flood-navy/40 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-center hover:border-flood-cyan/50 transition-all duration-300 hover:transform hover:scale-105"
+              >
+                <span className="text-white font-semibold">{tech}</span>
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-flood-cyan mb-3">AI & Processing</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• Deep learning models</li>
-                  <li>• Real-time data fusion</li>
-                  <li>• Predictive analytics</li>
-                  <li>• Computer vision</li>
-                </ul>
-              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Join the Movement Section */}
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-flood-navy/60 to-flood-cyan/20 border border-gray-800 p-12 text-center">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+              backgroundSize: '40px 40px'
+            }}></div>
+          </div>
+          
+          <div className="relative z-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Join the Movement
+            </h2>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
+              Help us build a safer, more resilient future for urban communities worldwide
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button className="bg-flood-cyan hover:bg-[#00BFFF] text-flood-navy px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-cyan-glow">
+                Get in Touch
+              </button>
+              <button className="bg-transparent border-2 border-flood-cyan hover:bg-flood-cyan/10 text-flood-cyan px-8 py-4 rounded-lg font-semibold transition-all duration-300">
+                View on GitHub
+              </button>
             </div>
           </div>
         </div>

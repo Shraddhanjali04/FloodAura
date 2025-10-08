@@ -110,7 +110,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-800/50 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2025 FloodWatch. Powered by AI for Climate Resilience.
+            © 2025 FloodAura. Powered by AI for Climate Resilience.
           </p>
         </div>
       </div>
