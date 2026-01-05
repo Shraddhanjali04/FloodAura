@@ -95,7 +95,7 @@ GOOGLE_ELEVATION_API_KEY=your_google_elevation_api_key_here
 GEMINI_API_KEY=your_gemini_api_key_here
 
 # JWT Configuration
-SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+SECRET_KEY=Your_secret_key
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 
