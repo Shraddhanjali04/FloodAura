@@ -16,7 +16,8 @@ const Footer = () => {
               <span className="text-xl font-bold text-white">FloodAura</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              AI-powered hyperlocal flood forecasting for safer urban communities.
+              AI-powered hyperlocal flood forecasting for safer urban
+              communities.
             </p>
           </div>
 
@@ -25,22 +26,34 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-flood-cyan transition-colors">
+                <Link
+                  to="/"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/live-map" className="text-gray-400 hover:text-flood-cyan transition-colors">
+                <Link
+                  to="/live-map"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
                   Live Map
                 </Link>
               </li>
               <li>
-                <Link to="/alerts" className="text-gray-400 hover:text-flood-cyan transition-colors">
+                <Link
+                  to="/alerts"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
                   Alerts
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-flood-cyan transition-colors">
+                <Link
+                  to="/about"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
                   About
                 </Link>
               </li>
@@ -52,22 +65,27 @@ const Footer = () => {
             <h3 className="text-white font-semibold mb-4">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <a href="/documentation" className="text-gray-400 hover:text-flood-cyan transition-colors">
-                  Documentation
+                <a
+                  href="/documentation"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
+                  
                 </a>
               </li>
+              <li></li>
               <li>
-                <a href="/api" className="text-gray-400 hover:text-flood-cyan transition-colors">
-                  API Access
-                </a>
-              </li>
-              <li>
-                <a href="/privacy" className="text-gray-400 hover:text-flood-cyan transition-colors">
+                <a
+                  href="/privacy"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/terms" className="text-gray-400 hover:text-flood-cyan transition-colors">
+                <a
+                  href="/terms"
+                  className="text-gray-400 hover:text-flood-cyan transition-colors"
+                >
                   Terms of Service
                 </a>
               </li>
@@ -88,7 +106,7 @@ const Footer = () => {
                 <Github className="w-6 h-6" />
               </a>
               <a
-                href="https://twitter.com/floodaura"
+                href="https://x.com/parthg1304"
                 className="text-gray-400 hover:text-flood-cyan transition-colors"
                 aria-label="Twitter"
                 target="_blank"
@@ -97,7 +115,7 @@ const Footer = () => {
                 <Twitter className="w-6 h-6" />
               </a>
               <a
-                href="mailto:contact@floodaura.com"
+                href="mailto:parthg1304@gmail.com"
                 className="text-gray-400 hover:text-flood-cyan transition-colors"
                 aria-label="Email"
               >

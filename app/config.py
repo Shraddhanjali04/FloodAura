@@ -42,6 +42,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "ignore"  # Ignore extra fields like REACT_APP_* variables
     
     @property
     def cors_origins(self) -> list[str]:

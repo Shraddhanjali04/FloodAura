@@ -15,6 +15,7 @@ from app.routers import notifications
 from app.routers import map
 from app.routers import alerts
 from app.routers import route_verdict
+from app.routers import chat
 
 
 @asynccontextmanager
@@ -90,6 +91,7 @@ app.include_router(notifications.router, prefix="/api/v1")
 app.include_router(map.router, prefix="/api/v1")
 app.include_router(alerts.router, prefix="/api/v1")
 app.include_router(route_verdict.router, prefix="/api")
+app.include_router(chat.router, prefix="/api")
 
 
 @app.get("/")
