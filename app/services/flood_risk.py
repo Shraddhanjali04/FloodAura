@@ -26,7 +26,7 @@ class FloodRiskService:
     """
     
     def __init__(self):
-        self.openweather_api_key = settings.OPENWEATHERMAP_API_KEY
+        self.GoogleMap_api_key = "68e1583c818816fac3a7f297540898ad"
         self.google_elevation_api_key = settings.GOOGLE_ELEVATION_API_KEY
         self.openweather_base_url = "https://api.openweathermap.org/data/2.5"
         self.google_elevation_base_url = "https://maps.googleapis.com/maps/api/elevation/json"
