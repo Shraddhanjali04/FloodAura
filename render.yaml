@@ -1,0 +1,36 @@
+# Render Configuration for Backend Deployment
+# Deploy Python FastAPI backend on Render.com
+
+services:
+  - type: web
+    name: ecocode-backend
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        sync: false
+      - key: OPENWEATHERMAP_API_KEY
+        sync: false
+      - key: GOOGLE_ELEVATION_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: APP_NAME
+        value: Hyperlocal Urban Flood Forecaster
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_ORIGINS
+        value: https://your-app.netlify.app,http://localhost:3000

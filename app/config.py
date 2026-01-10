@@ -3,8 +3,12 @@ Configuration settings for the Flood Forecaster application.
 Uses Pydantic Settings for environment variable management.
 """
 
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
+from pathlib import Path
+
+# Get the project root directory (parent of app/)
+PROJECT_ROOT = Path(__file__).parent.parent
 
 
 class Settings(BaseSettings):
@@ -39,10 +43,12 @@ class Settings(BaseSettings):
     SMTP_EMAIL: Optional[str] = None
     SMTP_PASSWORD: Optional[str] = None
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
-        extra = "ignore"  # Ignore extra fields like REACT_APP_* variables
+    model_config = SettingsConfigDict(
+        env_file=str(PROJECT_ROOT / ".env"),
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        extra="ignore"  # Ignore extra fields like REACT_APP_* variables
+    )
     
     @property
     def cors_origins(self) -> list[str]:

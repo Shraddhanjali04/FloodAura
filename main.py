@@ -124,6 +124,20 @@ async def health_check():
     }
 
 
+@app.get("/api/test-connection")
+async def test_connection():
+    """
+    Test endpoint to verify frontend-backend connection.
+    """
+    return {
+        "status": "success",
+        "message": "Backend connected successfully!",
+        "timestamp": "2026-01-10T00:00:00Z",
+        "cors_enabled": True,
+        "api_version": "1.0.0"
+    }
+
+
 @app.exception_handler(404)
 async def not_found_handler(request, exc):
     """Custom 404 error handler."""
