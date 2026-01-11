@@ -74,7 +74,7 @@
 │  External APIs        │    │  Database Layer       │
 │                       │    │  (PostgreSQL)         │
 │  ┌─────────────────┐  │    │                       │
-│  │ OpenWeatherMap  │  │    │  ┌─────────────────┐  │
+│  │ GoogleMap       │  │    │  ┌─────────────────┐  │
 │  │ • Current rain  │  │    │  │  flood_events   │  │
 │  │ • Forecast      │  │    │  │  • id           │  │
 │  └─────────────────┘  │    │  │  • location     │  │
@@ -224,7 +224,7 @@ main.py
                     │
 ┌─────────────────────────────────────────┐
 │           EXTERNAL SERVICES             │
-│  • OpenWeatherMap API                   │
+│  • GoogleMap API                        │
 │  • Google Elevation API                 │
 └─────────────────────────────────────────┘
 ```
