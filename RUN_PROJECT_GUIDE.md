@@ -20,14 +20,14 @@ Before starting, ensure you have:
 The project already has database and API credentials configured. Let's create the `.env` file:
 
 ```bash
-cd /Users/arnabmaity/Desktop/ecocode
+cd /Users/shraddhanjalibarik/Desktop/ecocode
 
 # Copy the example file
 cp .env.example .env
 
 # The .env file now contains:
 # - NeonDB PostgreSQL database (already configured)
-# - OpenWeatherMap API key (already configured)
+# - GoogleMap API key (already configured)
 # - Frontend API URL (http://localhost:8000)
 ```
 
@@ -42,7 +42,7 @@ cp .env.example .env
 
 #### 2a. Create Python Virtual Environment
 ```bash
-cd /Users/arnabmaity/Desktop/ecocode
+cd /Users/shraddhanjalibarik/Desktop/ecocode
 
 # Create virtual environment
 python3 -m venv venv
@@ -140,7 +140,7 @@ npm start
    ↓
 3. Backend receives request
    ↓
-4. Backend calls OpenWeatherMap API with configured key
+4. Backend calls GoogleMap API with configured key
    ↓
 5. Backend processes weather data + calculates flood risk
    ↓
