@@ -64,7 +64,7 @@ copy .env.example .env
 # Edit .env with your configuration
 # Required:
 # - DATABASE_URL
-# - OPENWEATHERMAP_API_KEY
+# - GOOGLEMAP_API_KEY
 # - SECRET_KEY (generate with: python -c "import secrets; print(secrets.token_hex(32))")
 ```
 
@@ -74,7 +74,8 @@ copy .env.example .env
 # NeonDB Connection (from your NeonDB dashboard)
 DATABASE_URL=postgresql://user:password@ep-xxx.neon.tech/dbname?sslmode=require
 
-OPENWEATHERMAP_API_KEY=your_api_key_here
+GOOGLEMAP_API_KEY=your_api_key_here
+GEMINI_API_KEY=_api_key_here
 GOOGLE_ELEVATION_API_KEY=optional_key_here
 SECRET_KEY=generated_secret_key_here
 ALGORITHM=HS256
@@ -163,7 +164,7 @@ floodAurra/
 | Variable | Description | Required | Default |
 |----------|-------------|----------|---------|
 | DATABASE_URL | PostgreSQL connection string | ✅ Yes | - |
-| OPENWEATHERMAP_API_KEY | OpenWeatherMap API key | ✅ Yes | - |
+| GOOGLEMAP_API_KEY | GoogleMap and Open weather API key | ✅ Yes | - |
 | GOOGLE_ELEVATION_API_KEY | Google Elevation API key | ❌ No | Mock data |
 | SECRET_KEY | JWT secret key | ✅ Yes | - |
 | ALGORITHM | JWT algorithm | ❌ No | HS256 |
