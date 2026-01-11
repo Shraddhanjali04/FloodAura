@@ -19,8 +19,8 @@
    Copy-paste this into Render:
    ```
    DATABASE_URL=postgresql://neondb_owner:npg_6fH7gSdRxTpX@ep-nameless-mud-adtrjmjk-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require
-   OPENWEATHERMAP_API_KEY=68e1583c818816fac3a7f297540898ad
-   GEMINI_API_KEY=AIzaSyAL3ouFdIzxhTnXXgeGFvpCL65OpkI0Q8A
+   GOOGlEMAP_API_KEY=
+   GEMINI_API_KEY=
    SECRET_KEY=627e87d4391226adb0646d4f0c9b760e205c0dec8f05de73a1ef0804dac53631
    DEBUG=False
    ALLOWED_ORIGINS=http://localhost:3000
